@@ -1,6 +1,8 @@
 import argparse
 import cv2
 import os
+import pytesseract
+from PIL import Image
 
 # construct the argument parse and parse the arguments
 arg_parser = argparse.ArgumentParser()
@@ -19,3 +21,11 @@ elif "blur" == args["preprocess"]:
 
 filename = "{}.png".format(os.getpgid())
 cv2.imwrite(filename=filename, img=gray)
+
+text = pytesseract.image_to_string(Image.open(filename))
+os.remove(filename)
+print(text)
+
+cv2.imshow("Image", image)
+cv2.imshow("Output", gray)
+cv2.waitKey(0)
