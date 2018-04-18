@@ -19,8 +19,9 @@ if "threshold" == args["preprocess"]:
 elif "blur" == args["preprocess"]:
     gray = cv2.medianBlur(gray, 3)
 
-filename = "{}.png".format(os.getpid())
-cv2.imwrite(filename="tmp/" + filename, img=gray)
+filename = "tmp/" + "{}.png".format(os.getpid())
+print("tmpfile = " + filename)
+cv2.imwrite(filename=filename, img=gray)
 
 text = pytesseract.image_to_string(Image.open(filename))
 os.remove(filename)
